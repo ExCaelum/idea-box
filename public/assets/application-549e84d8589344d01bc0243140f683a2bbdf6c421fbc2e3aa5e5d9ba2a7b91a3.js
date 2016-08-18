@@ -14372,15 +14372,34 @@ function insertIdea(idea){
   $('#ideas').prepend(buildIdea(idea))
 }
 ;
+// function deleteIdea() {
+//   $(document).on('click', '.deletePost', function(){
+//     var postId = $(this).parent().data('postId');
+//     $.ajax({
+//       method: "DELETE",
+//       url: "/api/v1/ideas/" + postId,
+//       data: {id: postId},
+//       success: function(deletedPost){
+//         $(".post[data-post-id=" + postId + "]").remove();
+//       }
+//     });
+//   });
+// }
 function deleteIdea() {
-  $(document).on('click', '.deletePost', function(event){
+  $(document).on('click', '.deletePost', function(){
     var postId = $(this).parent().data('postId');
     $.ajax({
       method: "DELETE",
       url: "/api/v1/ideas/" + postId,
       data: {id: postId},
       success: function(deletedPost){
-        $(".post[data-post-id=" + postId + "]").remove();
+        $(".post[data-post-id=" + postId + "]").animate({
+          padding: "0px",
+          'margin-top':'-10px',
+          'font-size':'0px'
+        }, 500, function(){
+          $(".post[data-post-id=" + postId + "]").remove();
+        });
       }
     });
   });
@@ -14427,8 +14446,7 @@ $(document).ready(function(){
   createIdea()
   deleteIdea()
   voting()
-  edit('title')
-  edit('ideaBody')
+  edit()
   search()
 })
 ;
