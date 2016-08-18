@@ -33,4 +33,14 @@ class Api::V1::IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, Idea.all.count
   end
 
+  test "update idea" do
+    patch "/api/v1/ideas/#{ideas(:one).id}?title=new&body=alsonew"
+
+    assert_response :success
+    idea = JSON.parse(response.body)
+
+    assert_equal "new", idea["title"]
+    assert_equal "alsonew", idea["body"]
+  end
+
 end
