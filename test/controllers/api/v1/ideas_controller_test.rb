@@ -26,4 +26,11 @@ class Api::V1::IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_equal "newidea", idea["body"]
   end
 
+  test "delete idea" do
+    delete "/api/v1/ideas/#{ideas(:one).id}"
+
+    assert_response :success
+    assert_equal 1, Idea.all.count
+  end
+
 end
