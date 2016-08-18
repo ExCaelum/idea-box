@@ -47,6 +47,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'launchy'
+  gem 'teaspoon'
+  gem 'teaspoon-mocha'
 end
 
 group :development do
