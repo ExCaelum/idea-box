@@ -33,7 +33,7 @@ class Api::V1::IdeasControllerTest < ActionDispatch::IntegrationTest
 
     error = JSON.parse(response.body)
 
-    assert_equal "invalid Data", error
+    assert_equal "invalid Data", error["error"]
   end
 
   test "delete idea" do

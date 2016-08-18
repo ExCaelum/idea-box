@@ -9,7 +9,6 @@ function buildIdeas(){
         return (y.created_at < x.created_at) ? -1 : ((y.created_at > x.created_at) ? 1 : 0)
       })
       $(ideas).each(function(index, idea){
-        debugger;
         $('#ideas').append(buildIdea(idea))
       })
     }
