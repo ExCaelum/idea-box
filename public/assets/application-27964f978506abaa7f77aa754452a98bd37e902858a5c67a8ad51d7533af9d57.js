@@ -13719,8 +13719,13 @@ function buildIdeas(){
 function buildIdea(idea) {
   var formatBody = shorten(idea.body)
   return (
-    "<div class='post col-md-12' data-post-id='"+ idea.id + "' data-post-quality='" + idea.quality + "'>" + "<div class='ideaTitle'><h2> " + idea.title + "</h2></div>" + "<div class='ideaBody'>-     " + formatBody + "</div>" + "<br><span class='ideaQuality'>Quality: " + idea.quality + " </span><br>" +
-    "<input type='button' class='thumbsUp btn-success glyphicon' value='Thumbs Up'></input>" + "<input type='button' class='thumbsDown btn-warning glyphicon' value='Thumbs Down'></input><input type='button' class='deletePost btn-danger glyphicon' value='Delete'></input><br><br><hr><br></div>"
+    "<div class='post col-md-12' id='" + idea.id + "' data-post-id='"+ idea.id + "' data-post-quality='" + idea.quality + "'>" +
+    "<div class='ideaTitle'><h2 class='title' data-id='" + idea.id + "' id='title-" + idea.id + "'> " + idea.title + "</h2></div>" +
+    "<div class='ideaBody' data-id='" + idea.id + "' id='body-" + idea.id + "'>" + formatBody + "</div>" +
+    "<br><span class='ideaQuality'>Quality: " + idea.quality + " </span><br>" +
+    "<input type='button' class='thumbsUp btn-success glyphicon' value='Thumbs Up'></input>" +
+    "<input type='button' class='thumbsDown btn-warning glyphicon' value='Thumbs Down'></input>" +
+    "<input type='button' class='deletePost btn-danger glyphicon' value='Delete'></input><br><br><hr><br></div>"
   )
 }
 
@@ -14381,11 +14386,110 @@ function deleteIdea() {
   });
 }
 ;
+
+function edit(){
+  $('body').on('click', '.title', function(){
+    this.setAttribute('contentEditable', 'true')
+    var dataId = $(this).data('id')
+    var id = $(this).attr('id')
+    $('#' + id).on('blur keydown', function(event){
+      if (event.type === 'blur' || event.keyCode === 13) {
+        this.setAttribute('contentEditable', 'false')
+        editIdea(dataId, this, { title: $(this).text()})
+      }
+    });
+  });
+
+  $('body').on('click', '.ideaBody', function(){
+    this.setAttribute('contentEditable', 'true')
+    var dataId = $(this).data('id')
+    var id = $(this).attr('id')
+    $('#' + id).on('blur keydown', function(event){
+      if (event.type === 'blur' || event.keyCode === 13) {
+        this.setAttribute('contentEditable', 'false')
+        editIdea(dataId, this, { body: $(this).text()})
+      }
+    });
+  })
+}
+
+function editIdea(id, div, updatedContent){
+  $.ajax({
+    method: 'PATCH',
+    url: '/api/v1/ideas/' + id,
+    dataType: 'JSON',
+    data: updatedContent,
+  })
+}
+;
 $(document).ready(function(){
   buildIdeas()
   createIdea()
   deleteIdea()
+  voting()
+  edit('title')
+  edit('ideaBody')
+  search()
 })
+;
+function search() {
+  $('#search').keyup(function(){
+     var searchInput = $(this).val().toLowerCase();
+
+     if(searchInput === ""){
+       $('div.post').show();
+     } else {
+       $('div.post').each(function(){
+
+        var title = $(this).find('.ideaTitle').html().toLowerCase();
+        var body = $(this).find('.ideaBody').html().toLowerCase();
+
+        var searchTitle = title.indexOf(searchInput) >= 0;
+        var searchBody  = body.indexOf(searchInput) >= 0;
+
+        (searchTitle || searchBody) ? $(this).show() : $(this).hide();
+       });
+     }
+  });
+}
+;
+function voting(){
+  $(document).on('click', '.thumbsUp', function(event){
+    var postId = $(this).parent().data('postId');
+    $.ajax({
+      method: "PATCH",
+      url: "/api/v1/ideas/" + postId + "/upvote",
+      success: upVote(postId)
+    });
+  })
+
+  $(document).on('click', '.thumbsDown', function(event){
+    var postId = $(this).parent().data('postId');
+    $.ajax({
+      method: "PATCH",
+      url: "/api/v1/ideas/" + postId + "/downvote",
+      success: downVote(postId)
+    });
+  })
+}
+
+function upVote(id){
+  var quality = $('#' + id).children('span').text()
+  var qualityHash = {"Quality: swill ": "Quality: plausible ",
+                     "Quality: plausible ": "Quality: genius ",
+                     "Quality: genius ": "Quality: genius "}
+  var newQuality = qualityHash[quality]
+  $('#' + id).children('span').text(newQuality)
+}
+
+function downVote(id){
+  var quality = $('#' + id).children('span').text()
+  var qualityHash = {"Quality: swill ": "Quality: swill ",
+                     "Quality: plausible ": "Quality: swill ",
+                     "Quality: genius ": "Quality: plausible "}
+  var newQuality = qualityHash[quality]
+  $('#' + id).children('span').text(newQuality)
+}
 ;
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
