@@ -16,4 +16,16 @@ class Idea < ApplicationRecord
     self
   end
 
+  def downvote
+    if self.quality == "swill"
+      self
+    elsif self.quality == "plausible"
+      self.quality = "swill"
+    else
+      self.quality = "plausible"
+    end
+    self.save
+    self
+  end
+
 end
