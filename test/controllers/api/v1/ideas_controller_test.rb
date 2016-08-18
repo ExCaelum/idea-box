@@ -14,4 +14,16 @@ class Api::V1::IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_equal "swill", ideas.first["quality"]
   end
 
+  test "create idea" do
+    post "/api/v1/ideas?title=new&body=newidea"
+
+    assert_response :success
+
+    idea = JSON.parse(response.body)
+
+    assert_equal 3, Idea.all.count
+    assert_equal "new", idea["title"]
+    assert_equal "newidea", idea["body"]
+  end
+
 end
