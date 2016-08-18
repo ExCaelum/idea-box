@@ -3,7 +3,6 @@ $(document).ready(function(){
   createIdea()
   deleteIdea()
   voting()
-  edit('title')
-  edit('ideaBody')
+  edit()
   search()
 })

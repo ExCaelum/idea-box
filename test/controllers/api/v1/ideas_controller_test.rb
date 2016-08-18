@@ -26,6 +26,16 @@ class Api::V1::IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_equal "newidea", idea["body"]
   end
 
+  test "create idea with bad data" do
+    post "/api/v1/ideas"
+
+    assert_response :success
+
+    error = JSON.parse(response.body)
+
+    assert_equal "invalid Data", error["error"]
+  end
+
   test "delete idea" do
     delete "/api/v1/ideas/#{ideas(:one).id}"
 

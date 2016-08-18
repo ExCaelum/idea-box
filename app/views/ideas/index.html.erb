@@ -1,31 +1,44 @@
-<nav class ="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid" id="main-navbar">
-    <div class="col-md-8 col-md-offset-4">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">IdeaBox</a>
+    </div>
+    <form class="navbar-form navbar-right">
+      <div class="form-group">
+        <input type="text" class="form-control search-box" id="search" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</nav>
+
+
+
+    <!-- <div class="col-md-8 col-md-offset-4">
       <br>
       <input class="form-control search-box" id="search" type="text" placeholder="Search">
       <br>
-    </div>
-  </div>
-</nav>
-<br><br><br>
+    </div> -->
 
-<h1>Idea Box</h1>
+<div class="container-fluid">
+  <h4>Whats your idea?</h4>
 
-<div class="col-md-12">
-  <div class="row">
-    <div class="col-md-2">
-       <label for="idea-title">Title</label>
-       <input class="form-control" type="text" id="idea-title"><br />
-     </div>
-     <div class="col-md-9">
-       <label for="idea-body">Body</label>
-       <input class="form-control" type="text" id="idea-body"><br />
-     </div>
-     <div class="col-md-1">
-       <input type="submit" value="Save" class="btn btn-primary-outline idea-submit shift-down" id="submit-idea">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-2">
+         <label for="idea-title">Title</label>
+         <input class="form-control" type="text" id="idea-title"><br />
+       </div>
+       <div class="col-md-9">
+         <label for="idea-body">Body</label>
+         <input class="form-control" type="text" id="idea-body"><br />
+       </div>
+       <div class="col-md-1">
+         <input type="submit" value="Save" class="btn btn-primary-outline idea-submit shift-down" id="submit-idea">
+       </div>
      </div>
    </div>
- </div>
 
-<div id="ideas">
+  <div id="ideas">
+  </div>
 </div>
