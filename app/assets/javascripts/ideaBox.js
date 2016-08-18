@@ -5,4 +5,5 @@ $(document).ready(function(){
   voting()
   edit('title')
   edit('ideaBody')
+  search()
 })
