@@ -18,7 +18,7 @@ function buildIdeas(){
 function buildIdea(idea) {
   var formatBody = shorten(idea.body)
   return (
-    "<div class='post col-md-12' data-post-id='"+ idea.id + "' data-post-quality='" + idea.quality + "'>" + "<div class='ideaTitle'><h2> " + idea.title + "</h2></div>" + "<div class='ideaBody'>-     " + formatBody + "</div>" + "<br><span class='ideaQuality'>Quality: " + idea.quality + " </span><br>" +
+    "<div class='post col-md-12' id='" + idea.id + "' data-post-id='"+ idea.id + "' data-post-quality='" + idea.quality + "'>" + "<div class='ideaTitle'><h2> " + idea.title + "</h2></div>" + "<div class='ideaBody'>-     " + formatBody + "</div>" + "<br><span class='ideaQuality'>Quality: " + idea.quality + " </span><br>" +
     "<input type='button' class='thumbsUp btn-success glyphicon' value='Thumbs Up'></input>" + "<input type='button' class='thumbsDown btn-warning glyphicon' value='Thumbs Down'></input><input type='button' class='deletePost btn-danger glyphicon' value='Delete'></input><br><br><hr><br></div>"
   )
 }

@@ -13,6 +13,10 @@ class Api::V1::IdeasController < ApplicationController
     end
   end
 
+  def update
+    render json: Idea.update(params[:id], idea_params)
+  end
+
   def destroy
     render json: Idea.destroy(params[:id])
   end
@@ -20,7 +24,7 @@ class Api::V1::IdeasController < ApplicationController
   private
 
   def idea_params
-    params.permit(:title, :body)
+    params.permit(:title, :body, :quality)
   end
 
 end

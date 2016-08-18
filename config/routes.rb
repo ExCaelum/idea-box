@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      resources :ideas, only: [:index, :create, :destroy]
+      resources :ideas, only: [:index, :create, :destroy, :update]
+      patch '/ideas/:id/upvote',to: "upvote#update"
+      patch '/ideas/:id/downvote', to: "downvote#update"
     end
   end
 end
