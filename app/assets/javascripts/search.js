@@ -13,7 +13,11 @@ function search() {
         var searchTitle = title.indexOf(searchInput) >= 0;
         var searchBody  = body.indexOf(searchInput) >= 0;
 
-        (searchTitle || searchBody) ? $(this).show() : $(this).hide();
+        if (searchTitle || searchBody) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
        });
      }
   });

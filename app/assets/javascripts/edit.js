@@ -1,28 +1,28 @@
 
 function edit(){
   $('body').on('click', '.title', function(){
-    this.setAttribute('contentEditable', 'true')
-    var dataId = $(this).data('id')
-    var id = $(this).attr('id')
+    this.setAttribute('contentEditable', 'true');
+    var dataId = $(this).data('id');
+    var id = $(this).attr('id');
     $('#' + id).on('blur keydown', function(event){
       if (event.type === 'blur' || event.keyCode === 13) {
-        this.setAttribute('contentEditable', 'false')
-        editIdea(dataId, this, { title: $(this).text()})
+        this.setAttribute('contentEditable', 'false');
+        editIdea(dataId, this, { title: $(this).text()});
       }
     });
   });
 
   $('body').on('click', '.ideaBody', function(){
-    this.setAttribute('contentEditable', 'true')
-    var dataId = $(this).data('id')
-    var id = $(this).attr('id')
+    this.setAttribute('contentEditable', 'true');
+    var dataId = $(this).data('id');
+    var id = $(this).attr('id');
     $('#' + id).on('blur keydown', function(event){
       if (event.type === 'blur' || event.keyCode === 13) {
-        this.setAttribute('contentEditable', 'false')
-        editIdea(dataId, this, { body: $(this).text()})
+        this.setAttribute('contentEditable', 'false');
+        editIdea(dataId, this, { body: $(this).text()});
       }
     });
-  })
+  });
 }
 
 function editIdea(id, div, updatedContent){
@@ -31,5 +31,5 @@ function editIdea(id, div, updatedContent){
     url: '/api/v1/ideas/' + id,
     dataType: 'JSON',
     data: updatedContent,
-  })
+  });
 }
